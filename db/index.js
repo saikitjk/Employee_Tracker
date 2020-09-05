@@ -1,13 +1,13 @@
 const connection = require("./connection");
 
-class DB{
-    constructor(connection){
-        this.connection = connection;
-    }
+class DB {
+  constructor(connection) {
+    this.connection = connection;
+  }
 
-    viewAllEmp(){
-        return this.connection.query(
-
+  viewAllEmp() {
+    return this.connection.query(
+      `
             SELECT 
                 EMP.first_name as 'First name',
                 EMP.last_name as 'Last name',
@@ -27,7 +27,9 @@ class DB{
             INNER JOIN  
                 department AS DEP  
                 ON ER.department_id = DEP.id
-        );
-    }
+            ORDER BY 
+                EMP.ROLE_ID
+        `
+    );
+  }
 }
-
