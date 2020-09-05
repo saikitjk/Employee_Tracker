@@ -35,21 +35,68 @@ class DB {
   }
 
   //View all emplyee by department
+  viewDeptEmp() {
+    return this.connection.query(
+      `
+          SELECT 
+      `
+    );
+  }
   //view all emplyee by manager
+  viewManager() {
+    return this.connection.query();
+  }
   //view all roles
+  viewAllRoles() {
+    return this.connection.query();
+  }
   //view all department
+  viewAllDept() {
+    return this.connection.query();
+  }
 
   //add employee
+  addEmp() {
+    return this.connection.query();
+  }
   //add role
+  addEmp() {
+    return this.connection.query();
+  }
+
   //add department
+  addDept() {
+    return this.connection.query();
+  }
 
   //update employee
+  updateEmp() {
+    return this.connection.query();
+  }
   //update employee role
+  updateRole() {
+    return this.connection.query();
+  }
   //update employee manager
+  updateManager() {
+    return this.connection.query();
+  }
 
   //remove role
+  removeRole() {
+    return this.connection.query();
+  }
   //remove employee
+  removeEmp() {
+    return this.connection.query();
+  }
   //remove department
+  removeDept() {
+    return this.connection.query();
+  }
 
   //view total salaries of all of all employee in that department
+  viewBudget() {
+    return this.connection.query();
+  }
 } //Class DB end here
