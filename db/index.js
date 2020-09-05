@@ -5,6 +5,7 @@ class DB {
     this.connection = connection;
   }
 
+  ///view all emplyee
   viewAllEmp() {
     return this.connection.query(
       `
@@ -32,4 +33,23 @@ class DB {
         `
     );
   }
-}
+
+  //View all emplyee by department
+  //view all emplyee by manager
+  //view all roles
+  //view all department
+
+  //add employee
+  //add role
+  //add department
+
+  //update employee
+  //update employee role
+  //update employee manager
+
+  //remove role
+  //remove employee
+  //remove department
+
+  //view total salaries of all of all employee in that department
+} //Class DB end here
