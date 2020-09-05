@@ -15,8 +15,10 @@ INSERT INTO empRole (title, salary, department_id)
 VALUES("Analysis", 120000, 3);
 --employee data
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES("tingWong", "Sum", 1, NULL);
+VALUES("SumTing", "Wrong", 1, NULL);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES("wiTu", "Lo", 2, 1);
+VALUES("WiTu", "Lo", 2, 1);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES("LeeFuk", "Ho", 3, 1);
+VALUES("HoLee", "Fuk", 3, 1);
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES("BangDing", "Ow", 2, 1);

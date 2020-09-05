@@ -16,3 +16,14 @@ CREATE TABLE empRole (
     PRIMARY KEY (id),
     FOREIGN KEY (department_id) REFERENCES department(id)
 );
+--employee table
+CREATE TABLE employee (
+    id INT AUTO_INCREMENT,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30),
+    role_id INT NOT NULL,
+    manager_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (role_id) REFERENCES empRole(id),
+    FOREIGN KEY (manager_id) REFERENCES employee(id)
+);
