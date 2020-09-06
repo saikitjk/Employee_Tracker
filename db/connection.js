@@ -10,8 +10,6 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) throw err;
-
-  console.log("\n Welcome to Employee Tracker \n");
 });
 connection.query = util.promisify(connection.query);
 
