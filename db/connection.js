@@ -8,7 +8,11 @@ const connection = mysql.createConnection({
   database: "company_db",
 });
 
-connection.connect();
+connection.connect((err) => {
+  if (err) throw err;
+
+  console.log("\n Welcome to Employee Tracker \n");
+});
 connection.query = util.promisify(connection.query);
 
 module.exports = connection;

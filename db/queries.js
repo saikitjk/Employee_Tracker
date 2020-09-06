@@ -100,3 +100,5 @@ class DB {
     return this.connection.query();
   }
 } //Class DB end here
+
+module.exports = new.DB(connection);
