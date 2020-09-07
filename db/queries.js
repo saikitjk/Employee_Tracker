@@ -122,16 +122,40 @@ class DB {
     );
   }
   //*******************************************************//
-  //   //View all emplyee by department
-  //   viewDeptEmp() {
-  //     return this.connection.query(
-  //       `
-  //           SELECT
-  //       `
-  //     );
-  //   }
-  //   //view all emplyee by manager
-  //   viewManager() {
+  listDBAllManager() {
+    return this.connection.query(
+      `
+            SELECT 
+              ID,
+              CONCAT(FIRST_NAME, ' ', LAST_NAME) as 'FULL_NAME'
+            FROM 
+              EMPLOYEE
+            WHERE
+              MANAGER_ID IS NULL
+    
+            `
+    );
+  }
+  //view all emplyee by manager
+  viewDBAllManager(manID) {
+    return this.connection.query(
+      `
+      SELECT
+        M.ID,
+        CONCAT(M.first_name, ' ', M.last_name) as 'EMP',
+        CONCAT(E.first_name, ' ', E.last_name) as 'Manager'
+
+      FROM
+        EMPLOYEE as E
+      RIGHT JOIN
+        EMPLOYEE as M
+      ON E.ID = M.MANAGER_ID
+      WHERE 
+        M.MANAGER_ID = ?
+      `,
+      manID
+    );
+  }
   //     return this.connection.query();
   //   }
   //   //View all emplyee by role

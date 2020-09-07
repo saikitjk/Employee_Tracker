@@ -11,59 +11,59 @@ module.exports = {
       choices: [
         {
           name: "View all employees",
-          value: "view_all_emp",
+          value: "viewAllEmp",
         },
         {
           name: "View all employees by role",
-          value: "view_all_emp_by_role",
+          value: "viewEmpByRole",
         },
         {
           name: "View all employees by department",
-          value: "view_all_emp_by_dept",
+          value: "viewEmpByDept",
         },
         {
           name: "View all employees by manager",
-          value: "view_all_emp_by_man",
+          value: "viewEmpByMan",
         },
         {
           name: "Add employee",
-          value: "add_emp",
+          value: "addEmp",
         },
         {
           name: "Add role",
-          value: "add_role",
+          value: "addRole",
         },
         {
           name: "Add department",
-          value: "add_dept",
+          value: "addDept",
         },
         {
           name: "Update employee role",
-          value: "up_emp_role",
+          value: "upRole",
         },
         {
           name: "Update employee manager",
-          value: "up_emp_man",
+          value: "upMan",
         },
         {
           name: "Update employee department",
-          value: "up_emp_dept",
+          value: "upDept",
         },
         {
           name: "Delete role",
-          value: "del_role",
+          value: "delRole",
         },
         {
           name: "Delete department",
-          value: "del_dept",
+          value: "delDept",
         },
         {
           name: "Delete employee",
-          value: "del_emp",
+          value: "delEmp",
         },
         {
           name: "View department budgets",
-          value: "view_dept_budget",
+          value: "viewDeptBudget",
         },
         {
           name: "Exit",
