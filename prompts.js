@@ -72,4 +72,22 @@ module.exports = {
       ],
     },
   ],
+
+  addEmpPrompt: [
+    {
+      name: "first_name",
+      type: "input",
+      message: "what is the new employee's first name?",
+    },
+    {
+      name: "last_name",
+      type: "input",
+      message: "what is the new employee's last name?",
+    },
+    // {
+    //   name: "salary",
+    //   type: "input",
+    //   message: "how much does this new employee earn?",
+    // },
+  ],
 }; //module.export ends here

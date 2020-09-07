@@ -156,29 +156,24 @@ class DB {
       manID
     );
   }
-  //     return this.connection.query();
-  //   }
-  //   //View all emplyee by role
-  //   viewDeptEmp() {
-  //     return this.connection.query(
-  //       `
-  //             SELECT
-  //         `
-  //     );
-  //   }
-  //   //view all roles
-  //   viewAllRoles() {
-  //     return this.connection.query();
-  //   }
-  //   //view all department
-  //   viewAllDept() {
-  //     return this.connection.query();
-  //   }
 
-  //   //add employee
-  //   addEmp() {
-  //     return this.connection.query();
-  //   }
+  //add employee
+  addEmp(action, newEmpRole, newEmpMan) {
+    console.log("checkping 6 " + JSON.stringify(action));
+    return this.connection.query(
+      `
+
+        INSERT INTO 
+          EMPLOYEE (first_name, last_name, role_id, manager_id)
+        VALUE ?
+        `,
+      action,
+      newEmpRole,
+      newEmpMan
+    );
+  }
+
+  //(${action.first_name}, ${action[1]}, ${newEmpRole},${newEmpMan})
   //   //add role
   //   addEmp() {
   //     return this.connection.query();

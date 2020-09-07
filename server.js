@@ -23,6 +23,8 @@ async function main() {
       break;
 
     case "addEmp":
+      addEmp();
+      break;
     case "addRole":
     case "addDept":
     case "upRole":
@@ -85,7 +87,7 @@ async function viewAllEmpByRole() {
 
   //console.log("hey " + typeof roleOption + " - " + JSON.stringify(roleOption));
 
-  const roleID = await inquirer.prompt([
+  const { roleID } = await inquirer.prompt([
     {
       type: "list",
       name: "roleID",
@@ -128,6 +130,55 @@ async function viewAllEmpByManager() {
   console.log("\n");
   console.table(allEmpByMan);
   console.log("\n");
+  main();
+}
+
+async function addEmp() {
+  const roleList = await db.listDBAllRole();
+  const roleOption = roleList.map(({ ID, TITLE }) => ({
+    name: TITLE,
+    value: ID,
+  }));
+
+  const manList = await db.listDBAllManager();
+  const manOption = manList.map(({ ID, FULL_NAME }) => ({
+    name: FULL_NAME,
+    value: ID,
+  }));
+
+  const action = await inquirer.prompt(prompts.addEmpPrompt);
+  //console.log("checking action: " + JSON.stringify(action));
+
+  const newEmpRole = await inquirer.prompt([
+    {
+      name: "newEmpRole",
+      type: "list",
+      message: "What is the new employee's role?",
+      choices: roleOption,
+    },
+  ]);
+
+  const newEmpMan = await inquirer.prompt([
+    {
+      name: "newEmpMan",
+      type: "list",
+      message: "who is the manager of this new employee?",
+      choices: manOption,
+    },
+  ]);
+
+  console.log("checking action1: " + JSON.stringify(newEmpRole));
+  console.log("checking action3: " + JSON.stringify(newEmpMan));
+  console.log("checking action5: " + JSON.stringify(action));
+
+  //   var newEmpArray = [];
+  //   newEmpArray.push(action, newEmpRole, newEmpMan);
+
+  //console.log("checking action5: " + JSON.stringify(newEmpArray));
+
+  await db.addEmp(action, newEmpRole, newEmpMan);
+  console.log(`Added ${action.first_name} into database`);
+
   main();
 }
 
