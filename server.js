@@ -186,14 +186,40 @@ async function addEmp() {
     ...newEmpManID,
   };
 
-  await db.addEmp(newEmpArray);
+  await db.addDBEmp(newEmpArray);
 
   console.log(`Added ${empName.first_name}${empName.last_name} into database`);
-
+  viewAllEmp();
   main();
 }
 
-async function addEmpRole() {}
+async function addEmpRole() {
+  const deptList = await db.listDBAllDept();
+  const deptOption = deptList.map(({ ID, NAME }) => ({
+    name: NAME,
+    value: ID,
+  }));
+  const title = await inquirer.prompt(prompts.addEmpRole);
+
+  const newDeptID = await inquirer.prompt([
+    {
+      name: "department_id",
+      type: "list",
+      message: "which department does this new role belong to?",
+      choices: deptOption,
+    },
+  ]);
+
+  var newRoleArray = {
+    ...title,
+    ...newDeptID,
+  };
+
+  await db.addDBEmpRole(newRoleArray);
+  console.log(
+    `Added ${title.title} with salart: ${title.salary} into database`
+  );
+}
 
 async function addDeptment() {}
 

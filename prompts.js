@@ -26,15 +26,15 @@ module.exports = {
           value: "viewEmpByMan",
         },
         {
-          name: "Add employee",
+          name: "Add new employee",
           value: "addEmp",
         },
         {
-          name: "Add role",
+          name: "Add new title",
           value: "addRole",
         },
         {
-          name: "Add department",
+          name: "Add new department",
           value: "addDept",
         },
         {
@@ -89,5 +89,24 @@ module.exports = {
     //   type: "input",
     //   message: "how much does this new employee earn?",
     // },
+  ],
+
+  addEmpRole: [
+    {
+      name: "title",
+      type: "input",
+      message: "What is the name of this new title?",
+    },
+    {
+      name: "salary",
+      type: "input",
+      message: "what is the salary of this new title?",
+      validate: function (value) {
+        if (isNaN(value) === false) {
+          return true;
+        }
+        return "Please enter a number.";
+      },
+    },
   ],
 }; //module.export ends here

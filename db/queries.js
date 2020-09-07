@@ -158,7 +158,7 @@ class DB {
   }
 
   //add employee
-  addEmp(newEmpArray) {
+  addDBEmp(newEmpArray) {
     return this.connection.query(
       `
 
@@ -171,11 +171,15 @@ class DB {
   }
 
   //add role
-  addEmp() {
+  addDBEmpRole(newRoleArray) {
     return this.connection.query(
       `
-      
-      `
+
+      INSERT INTO
+        EMPROLE
+      SET ?
+      `,
+      newRoleArray
     );
   }
 
