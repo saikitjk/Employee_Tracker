@@ -158,26 +158,26 @@ class DB {
   }
 
   //add employee
-  addEmp(action, newEmpRole, newEmpMan) {
-    console.log("checkping 6 " + JSON.stringify(action));
+  addEmp(newEmpArray) {
     return this.connection.query(
       `
 
         INSERT INTO 
-          EMPLOYEE (first_name, last_name, role_id, manager_id)
-        VALUE ?
+          EMPLOYEE
+        SET ?
         `,
-      action,
-      newEmpRole,
-      newEmpMan
+      newEmpArray
     );
   }
 
-  //(${action.first_name}, ${action[1]}, ${newEmpRole},${newEmpMan})
-  //   //add role
-  //   addEmp() {
-  //     return this.connection.query();
-  //   }
+  //add role
+  addEmp() {
+    return this.connection.query(
+      `
+      
+      `
+    );
+  }
 
   //   //add department
   //   addDept() {

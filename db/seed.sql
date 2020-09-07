@@ -15,7 +15,7 @@ INSERT INTO empRole (title, salary, department_id)
 VALUES("Analysis", 120000, 3);
 --employee data
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES("SumTing", "Wrong", 1, NULL);
+VALUES("SumTing", "Wong", 1, NULL);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES("WiTu", "Lo", 2, 1);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)

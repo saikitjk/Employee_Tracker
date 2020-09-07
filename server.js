@@ -21,12 +21,15 @@ async function main() {
     case "viewEmpByMan":
       viewAllEmpByManager();
       break;
-
     case "addEmp":
       addEmp();
       break;
     case "addRole":
+      addEmpRole();
+      break;
     case "addDept":
+      addDeptment();
+      break;
     case "upRole":
     case "upMan":
     case "upDept":
@@ -37,6 +40,9 @@ async function main() {
     case "exit":
   }
 }
+
+//*******************************************************/
+
 //*******************************************************/
 async function viewAllEmp() {
   const allEmp = await db.viewDbAllEmp();
@@ -124,7 +130,7 @@ async function viewAllEmpByManager() {
     },
   ]);
 
-  console.log("hey " + typeof manID + " - " + JSON.stringify(manID));
+  //console.log("hey " + typeof manID + " - " + JSON.stringify(manID));
 
   const allEmpByMan = await db.viewDBAllManager(manID);
   console.log("\n");
@@ -132,7 +138,7 @@ async function viewAllEmpByManager() {
   console.log("\n");
   main();
 }
-
+//*******************************************************/
 async function addEmp() {
   const roleList = await db.listDBAllRole();
   const roleOption = roleList.map(({ ID, TITLE }) => ({
@@ -146,40 +152,49 @@ async function addEmp() {
     value: ID,
   }));
 
-  const action = await inquirer.prompt(prompts.addEmpPrompt);
-  //console.log("checking action: " + JSON.stringify(action));
+  const empName = await inquirer.prompt(prompts.addEmpPrompt); //ask FN LN
 
-  const newEmpRole = await inquirer.prompt([
+  const newEmpRoleID = await inquirer.prompt([
     {
-      name: "newEmpRole",
+      name: "role_id",
       type: "list",
       message: "What is the new employee's role?",
       choices: roleOption,
     },
   ]);
 
-  const newEmpMan = await inquirer.prompt([
-    {
-      name: "newEmpMan",
-      type: "list",
-      message: "who is the manager of this new employee?",
-      choices: manOption,
-    },
-  ]);
+  var newEmpManID = null;
 
-  console.log("checking action1: " + JSON.stringify(newEmpRole));
-  console.log("checking action3: " + JSON.stringify(newEmpMan));
-  console.log("checking action5: " + JSON.stringify(action));
+  if (newEmpRoleID.role_id !== 1) {
+    newEmpManID = await inquirer.prompt([
+      {
+        name: "manager_id",
+        type: "list",
+        message: "who is the manager of this new employee?",
+        choices: manOption,
+      },
+    ]);
+  }
 
-  //   var newEmpArray = [];
-  //   newEmpArray.push(action, newEmpRole, newEmpMan);
+  console.log(
+    "checking action2: " + typeof newEmpManID + JSON.stringify(newEmpManID)
+  );
 
-  //console.log("checking action5: " + JSON.stringify(newEmpArray));
+  var newEmpArray = {
+    ...empName,
+    ...newEmpRoleID,
+    ...newEmpManID,
+  };
 
-  await db.addEmp(action, newEmpRole, newEmpMan);
-  console.log(`Added ${action.first_name} into database`);
+  await db.addEmp(newEmpArray);
+
+  console.log(`Added ${empName.first_name}${empName.last_name} into database`);
 
   main();
 }
+
+async function addEmpRole() {}
+
+async function addDeptment() {}
 
 main();

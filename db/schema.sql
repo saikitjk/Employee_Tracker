@@ -14,7 +14,7 @@ CREATE TABLE empRole (
     salary DECIMAL,
     department_id INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (department_id) REFERENCES department(id)
+    FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE
 );
 --employee table
 CREATE TABLE employee (
@@ -25,5 +25,5 @@ CREATE TABLE employee (
     manager_id INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (role_id) REFERENCES empRole(id),
-    FOREIGN KEY (manager_id) REFERENCES employee(id)
+    FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE CASCADE
 );
