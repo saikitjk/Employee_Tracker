@@ -5,12 +5,30 @@ const db = require("./db/queries");
 require("console.table");
 
 async function main() {
+  console.log("\n Welcome to Employee Tracker \n");
   const { action } = await inquirer.prompt(prompts.mainPrompt);
 
   switch (action) {
-    case "View all employees":
-      console.log("second checkpoint");
+    case "view_all_emp":
       viewAllEmp();
+
+    case "view_all_emp_by_role":
+
+    case "view_all_emp_by_dept":
+      viewAllEmpByDept();
+    case "view_all_emp_by_man":
+
+    case "add_emp":
+    case "add_role":
+    case "add_dept":
+    case "up_emp_role":
+    case "up_emp_man":
+    case "up_emp_dept":
+    case "del_role":
+    case "del_dept":
+    case "del_emp":
+    case "view_dept_budget":
+    case "exit":
   }
 }
 
@@ -18,46 +36,37 @@ async function viewAllEmp() {
   const allEmp = await db.viewDbAllEmp();
 
   console.log("\n");
+  console.log("All employees in this company");
   console.table(allEmp);
+  console.log("\n");
 
   main();
 }
 
+async function viewAllEmpByDept() {
+  const deptList = await db.listDBAllDept();
+  const deptOption = deptList.map(({ ID, NAME }) => ({
+    name: NAME,
+    value: ID,
+  }));
+
+  //console.log("hey " + typeof deptList + " - " + deptList);
+
+  const { deptID } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "deptID",
+      message: "which department you want to view?",
+      choices: deptOption,
+    },
+  ]);
+  console.log("hey " + typeof deptID + " - " + deptID);
+
+  const allEmpByDept = await db.viewDBAllEmpByDept(deptID);
+  console.log("\n");
+  console.table(allEmpByDept);
+  console.log("\n");
+  main();
+}
+
 main();
-
-// async function mainPrompt() {
-//   console.log("\n Welcome to Employee Tracker \n");
-//   inquirer
-//     .prompt({
-//       name: "action",
-//       type: "list",
-//       message: "What do you want to do?",
-//       choices: [
-//         "View all employees",
-//         "View all employees by role",
-//         "View all employees by department",
-//         "View all employees by manager",
-//         "Add employee",
-//         "Add role",
-//         "Add department",
-//         "Update employee role",
-//         "Update employee manager",
-//         "Delete employee",
-//         "Delete role",
-//         "Delete department",
-//         "View department budgets",
-//       ],
-//     })
-//     .then((answer) => {
-//       switch (answer.action) {
-//         case "View all employees":
-//           console.log("second checkpoint");
-//           console.log("\n");
-//           console.table(prompts.viewAllEmp());
-
-//         //return viewAllEmp();
-//       }
-//     });
-// }
-
-// mainPrompt();

@@ -9,40 +9,67 @@ module.exports = {
       type: "list",
       message: "What do you want to do?",
       choices: [
-        "View all employees",
-        "View all employees by role",
-        "View all employees by department",
-        "View all employees by manager",
-        "Add employee",
-        "Add role",
-        "Add department",
-        "Update employee role",
-        "Update employee manager",
-        "Delete employee",
-        "Delete role",
-        "Delete department",
-        "View department budgets",
+        {
+          name: "View all employees",
+          value: "view_all_emp",
+        },
+        {
+          name: "View all employees by role",
+          value: "view_all_emp_by_role",
+        },
+        {
+          name: "View all employees by department",
+          value: "view_all_emp_by_dept",
+        },
+        {
+          name: "View all employees by manager",
+          value: "view_all_emp_by_man",
+        },
+        {
+          name: "Add employee",
+          value: "add_emp",
+        },
+        {
+          name: "Add role",
+          value: "add_role",
+        },
+        {
+          name: "Add department",
+          value: "add_dept",
+        },
+        {
+          name: "Update employee role",
+          value: "up_emp_role",
+        },
+        {
+          name: "Update employee manager",
+          value: "up_emp_man",
+        },
+        {
+          name: "Update employee department",
+          value: "up_emp_dept",
+        },
+        {
+          name: "Delete role",
+          value: "del_role",
+        },
+        {
+          name: "Delete department",
+          value: "del_dept",
+        },
+        {
+          name: "Delete employee",
+          value: "del_emp",
+        },
+        {
+          name: "View department budgets",
+          value: "view_dept_budget",
+        },
+        {
+          name: "Exit",
+          value: "exit",
+        },
       ],
     },
   ],
 }; //module.export ends here
-
-// .then((answer) => {
-//   switch (answer.action) {
-//     case "View all employees":
-//       console.log("second checkpoint");
-//       return viewAllEmp();
-
-//return viewAllEmp();
-//       }
-//     });
-// }
-
-// module.exports = {
-//   viewAllEmp: function () {
-//     const allEmp = db.viewDbAllEmp();
-
-//     //console.log("\n");
-//     return allEmp;
-//   },
-// };

@@ -34,6 +34,49 @@ class DB {
     );
   }
 
+  //view all dept
+  listDBAllDept() {
+    return this.connection.query(
+      `
+        SELECT 
+          ID, 
+          NAME 
+        FROM 
+          DEPARTMENT
+
+        `
+    );
+  }
+  //view all emp by dept
+  viewDBAllEmpByDept(deptID) {
+    return this.connection.query(
+      `
+      SELECT 
+        EMP.first_name as 'First name',
+        EMP.last_name as 'Last name',
+        ER.title as 'Title',
+        ER.salary as 'Salary',
+        DEP.name as 'Department',
+        CONCAT(man.first_name, ' ', man.last_name) as 'Manager'
+
+      FROM 
+        employee AS MAN
+      RIGHT JOIN
+        employee AS EMP
+        ON MAN.id = EMP.manager_id
+      INNER JOIN 
+        empRole AS ER
+        ON EMP.ROLE_ID = ER.id
+      INNER JOIN  
+        department AS DEP  
+        ON ER.department_id = DEP.id
+      WHERE 
+        DEP.ID = ?
+      `,
+      deptID
+    );
+  }
+
   //   //View all emplyee by department
   //   viewDeptEmp() {
   //     return this.connection.query(
