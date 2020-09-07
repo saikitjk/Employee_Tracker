@@ -13,9 +13,11 @@ async function main() {
       viewAllEmp();
 
     case "view_all_emp_by_role":
+      viewAllEmpByRole();
 
     case "view_all_emp_by_dept":
       viewAllEmpByDept();
+
     case "view_all_emp_by_man":
 
     case "add_emp":
@@ -56,11 +58,11 @@ async function viewAllEmpByDept() {
     {
       type: "list",
       name: "deptID",
-      message: "which department you want to view?",
+      message: "which department do you want to view?",
       choices: deptOption,
     },
   ]);
-  console.log("hey " + typeof deptID + " - " + deptID);
+  //console.log("hey " + typeof deptID + " - " + deptID);
 
   const allEmpByDept = await db.viewDBAllEmpByDept(deptID);
   console.log("\n");
@@ -68,5 +70,28 @@ async function viewAllEmpByDept() {
   console.log("\n");
   main();
 }
+
+
+async function viewAllEmpByRole();
+    const roleList = await db.listDBAllRole();
+    const roleOption = roleList.map(({ID, TITLE})=>({
+        name: TITLE,
+        value: ID,
+    }));
+
+    const {roleID} = await inquirer.prompt([
+        {
+            type: "list",
+            name: "roleID",
+            message: "which role do you want to view?",
+            choices: roleOption,
+          },
+    ]);
+    const allEmpByRole = await db.viewDBAllEmpByRole(roleID);
+    console.log("\n");
+    console.table(allEmpByRole);
+    console.log("\n");
+    main();
+
 
 main();
