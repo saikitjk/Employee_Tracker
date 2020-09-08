@@ -300,12 +300,46 @@ async function updateEmpRole() {
     },
   ]);
 
-  console.log("Checking: " + JSON.stringify(updatEmpRole));
+  //console.log("Checking: " + JSON.stringify(updatEmpRole));
 
   await db.updateDBEmpRole(updatEmpRole);
   console.log(`The employee's title has been updated.`);
   main();
 }
+
+async function updateEmpManager() {
+  ///get all emp option
+  const empList = await db.listDBAllEmp();
+  const empOption = empList.map(({ ID, FULL_NAME }) => ({
+    name: FULL_NAME,
+    value: ID,
+  }));
+  const managerList = await db.listDBAllManager();
+  const managerOption = managerList.map(({ ID, FULL_NAME }) => ({
+    name: FULL_NAME,
+    value: ID,
+  }));
+
+  const updateEmpManagerInfo = await inquirer.prompt([
+    {
+      name: "ID",
+      type: "list",
+      message: "Which employee do want to update?",
+      choices: empOption,
+    },
+    {
+      name: "manager_id",
+      type: "list",
+      message: "Which manager should this employee goes under?",
+      choices: managerOption,
+    },
+  ]);
+  console.log("Checking: " + JSON.stringify(updateEmpManagerInfo));
+  //await db.updateDBEmpManager(updateEmpManagerInfo);
+  console.log(`The employee has been transferred to a new manager.`);
+  main();
+}
+
 main();
 
 //   ///get all manager option

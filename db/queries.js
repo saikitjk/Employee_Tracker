@@ -237,10 +237,18 @@ class DB {
         `
     );
   }
-  //   //update employee manager
-  //   updateManager() {
-  //     return this.connection.query();
-  //   }
+  //update employee manager
+  updateDBEmpManager() {
+    return this.connection.query(
+      `
+      UPDATE
+        EMPLOYEE
+      SET
+        manager_id = ${uupdateEmpManagerInfo.manager_id}
+      WHERE
+        ID = ${uupdateEmpManagerInfo.ID}
+    );
+  }
 
   //   //remove role
   //   removeRole() {
