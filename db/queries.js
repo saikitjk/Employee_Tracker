@@ -10,6 +10,7 @@ class DB {
     return this.connection.query(
       `
             SELECT 
+                EMP.ID,
                 EMP.first_name as 'First name',
                 EMP.last_name as 'Last name',
                 ER.title as 'Title',
@@ -238,31 +239,57 @@ class DB {
     );
   }
   //update employee manager
-  updateDBEmpManager() {
+  updateDBEmpManager(updateEmpManagerInfo) {
     return this.connection.query(
       `
       UPDATE
         EMPLOYEE
       SET
-        manager_id = ${uupdateEmpManagerInfo.manager_id}
+        manager_id = ${updateEmpManagerInfo.manager_id}
       WHERE
-        ID = ${uupdateEmpManagerInfo.ID}
+        ID = ${updateEmpManagerInfo.ID}
         `
     );
   }
 
-  //   //remove role
-  //   removeRole() {
-  //     return this.connection.query();
-  //   }
-  //   //remove employee
-  //   removeEmp() {
-  //     return this.connection.query();
-  //   }
-  //   //remove department
-  //   removeDept() {
-  //     return this.connection.query();
-  //   }
+  //remove EMP
+  delDBEmp(delEmpInfo) {
+    return this.connection.query(
+      `
+      DELETE 
+      FROM 
+        EMPLOYEE 
+      WHERE 
+        ID = ${delEmpInfo.ID};
+
+      `
+    );
+  }
+  //remove Role
+  delDBRole(delRoleInfo) {
+    return this.connection.query(
+      `
+        DELETE 
+        FROM 
+          EMPROLE 
+        WHERE 
+          ID = ${delRoleInfo.role_id};
+  
+        `
+    );
+  }
+  //remove department
+  delDBDept(delDeptInfo) {
+    return this.connection.query(
+      `
+        DELETE 
+        FROM 
+          DEPARTMENT 
+        WHERE 
+          ID = ${delDeptInfo.department_id};
+        `
+    );
+  }
 
   //   //view total salaries of all of all employee in that department
   //   viewBudget() {

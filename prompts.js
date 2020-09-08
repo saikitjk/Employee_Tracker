@@ -50,16 +50,16 @@ module.exports = {
           value: "upMan",
         },
         {
+          name: "Delete employee",
+          value: "delEmp",
+        },
+        {
           name: "Delete role",
           value: "delRole",
         },
         {
           name: "Delete department",
           value: "delDept",
-        },
-        {
-          name: "Delete employee",
-          value: "delEmp",
         },
         {
           name: "View department budgets",
@@ -128,6 +128,15 @@ module.exports = {
       name: "last_name",
       type: "input",
       message: "what is the employee's new last name?",
+    },
+  ],
+
+  confirmAction: [
+    {
+      name: "confirm",
+      type: "list",
+      message: "Please confirm the action.",
+      choices: ["NO", "YES"],
     },
   ],
 }; //module.export ends here

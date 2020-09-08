@@ -39,9 +39,15 @@ async function main() {
     case "upMan":
       updateEmpManager();
       break;
-    case "delRole":
-    case "delDept":
     case "delEmp":
+      delEmp();
+      break;
+    case "delRole":
+      delRole();
+      break;
+    case "delDept":
+      delDept();
+      break;
     case "viewDeptBudget":
     case "exit":
   }
@@ -291,7 +297,7 @@ async function updateEmpRole() {
     {
       name: "ID",
       type: "list",
-      message: "Which employee do want to update?",
+      message: "Which employee do you want to update?",
       choices: empOption,
     },
     {
@@ -340,6 +346,93 @@ async function updateEmpManager() {
   await db.updateDBEmpManager(updateEmpManagerInfo);
   console.log(`The employee has been transferred to a new manager.`);
   main();
+}
+
+async function delEmp() {
+  const empList = await db.listDBAllEmp();
+  const empOption = empList.map(({ ID, FULL_NAME }) => ({
+    name: FULL_NAME,
+    value: ID,
+  }));
+
+  const delEmpInfo = await inquirer.prompt([
+    {
+      name: "ID",
+      type: "list",
+      message: "Which employee do you want to delete?",
+      choices: empOption,
+    },
+  ]);
+  //confirm deletion
+  const confirmAction = await inquirer.prompt(prompts.confirmAction);
+
+  if (confirmAction.confirm === "YES") {
+    await db.delDBEmp(delEmpInfo);
+    console.log(
+      `The employee with ID: ${delEmpInfo.ID} has been removed from the database.`
+    );
+    main();
+  } else {
+    main();
+  }
+}
+
+async function delRole() {
+  const roleList = await db.listDBAllRole();
+  const roleOption = roleList.map(({ ID, TITLE }) => ({
+    name: TITLE,
+    value: ID,
+  }));
+  const delRoleInfo = await inquirer.prompt([
+    {
+      name: "role_id",
+      type: "list",
+      message: "Which role do you want to delete?",
+      choices: roleOption,
+    },
+  ]);
+
+  //confirm deletion
+  const confirmAction = await inquirer.prompt(prompts.confirmAction);
+
+  if (confirmAction.confirm === "YES") {
+    await db.delDBRole(delRoleInfo);
+    console.log(
+      `The title with Role_ID: ${delRoleInfo.role_id} has been removed from the database.`
+    );
+    main();
+  } else {
+    main();
+  }
+}
+
+async function delDept() {
+  const deptList = await db.listDBAllDept();
+  const deptOption = deptList.map(({ ID, NAME }) => ({
+    name: NAME,
+    value: ID,
+  }));
+
+  const delDeptInfo = await inquirer.prompt([
+    {
+      type: "list",
+      name: "department_id",
+      message: "which department do you want to delete from the database",
+      choices: deptOption,
+    },
+  ]);
+
+  const confirmAction = await inquirer.prompt(prompts.confirmAction);
+
+  if (confirmAction.confirm === "YES") {
+    //await db.delDBRole(delDeptInfo);
+    console.log(
+      `The department with department_ID: ${delDeptInfo.department_id} has been removed from the database.`
+    );
+    main();
+  } else {
+    main();
+  }
 }
 
 main();
