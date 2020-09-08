@@ -171,7 +171,7 @@ class DB {
   }
 
   //add role
-  addDBEmpRole(newRoleArray) {
+  addDBNewRole(newRoleArray) {
     return this.connection.query(
       `
 
@@ -183,10 +183,17 @@ class DB {
     );
   }
 
-  //   //add department
-  //   addDept() {
-  //     return this.connection.query();
-  //   }
+  //add department
+  addDBNewDept(deptName) {
+    return this.connection.query(
+      `
+      INSERT INTO
+        DEPARTMENT
+      SET ?
+      `,
+      deptName
+    );
+  }
 
   //   //update employee
   //   updateEmp() {

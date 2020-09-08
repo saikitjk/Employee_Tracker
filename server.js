@@ -199,7 +199,7 @@ async function addEmpRole() {
     name: NAME,
     value: ID,
   }));
-  const title = await inquirer.prompt(prompts.addEmpRole);
+  const title = await inquirer.prompt(prompts.addNewRole);
 
   const newDeptID = await inquirer.prompt([
     {
@@ -214,13 +214,22 @@ async function addEmpRole() {
     ...title,
     ...newDeptID,
   };
-
-  await db.addDBEmpRole(newRoleArray);
+  console.log(typeof newRoleArray + JSON.stringify(newRoleArray));
+  await db.addDBNewRole(newRoleArray);
   console.log(
-    `Added ${title.title} with salart: ${title.salary} into database`
+    `Added new ${title.title} with salart: ${title.salary} into database`
   );
+  main();
 }
 
-async function addDeptment() {}
+async function addDeptment() {
+  const deptName = await inquirer.prompt(prompts.addNewDept);
+
+  await db.addDBNewDept(deptName);
+  //console.log(typeof deptName + JSON.stringify(deptName));
+  console.log(`Added new department: ${deptName.name} into database`);
+
+  main();
+}
 
 main();

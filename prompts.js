@@ -91,7 +91,7 @@ module.exports = {
     // },
   ],
 
-  addEmpRole: [
+  addNewRole: [
     {
       name: "title",
       type: "input",
@@ -107,6 +107,14 @@ module.exports = {
         }
         return "Please enter a number.";
       },
+    },
+  ],
+
+  addNewDept: [
+    {
+      name: "name",
+      type: "input",
+      message: "What is the name of the new department?",
     },
   ],
 }; //module.export ends here
