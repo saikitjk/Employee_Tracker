@@ -291,10 +291,31 @@ class DB {
     );
   }
 
-  //   //view total salaries of all of all employee in that department
-  //   viewBudget() {
-  //     return this.connection.query();
-  //   }
+  //view total salaries of all of all employee in that department
+  viewBudget(totalDeptBudget) {
+    return this.connection.query(
+      `
+        SELECT
+          DEP.name as 'Department',
+          SUM(ER.SALARY) as 'Total_Salary'
+
+        FROM 
+          employee AS MAN
+        RIGHT JOIN
+          employee AS EMP
+          ON MAN.id = EMP.manager_id
+        INNER JOIN 
+          empRole AS ER
+          ON EMP.ROLE_ID = ER.id
+        INNER JOIN  
+          department AS DEP  
+          ON ER.department_id = DEP.id
+        WHERE
+          DEP.ID = ${totalDeptBudget.department_id}
+        GROUP BY DEP.ID
+   `
+    );
+  }
 } //Class DB end here
 
 module.exports = new DB(connection);

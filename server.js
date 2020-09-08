@@ -4,6 +4,7 @@ const prompts = require("./prompts");
 const db = require("./db/queries");
 require("console.table");
 
+console.log("\n Welcome to Employee Tracker \n");
 async function main() {
   console.log("\n Please select an action \n");
   const { action } = await inquirer.prompt(prompts.mainPrompt);
@@ -49,7 +50,11 @@ async function main() {
       delDept();
       break;
     case "viewDeptBudget":
+      totalSalary();
+      break;
     case "exit":
+      exit();
+      break;
   }
 }
 
@@ -425,7 +430,7 @@ async function delDept() {
   const confirmAction = await inquirer.prompt(prompts.confirmAction);
 
   if (confirmAction.confirm === "YES") {
-    //await db.delDBRole(delDeptInfo);
+    await db.delDBRole(delDeptInfo);
     console.log(
       `The department with department_ID: ${delDeptInfo.department_id} has been removed from the database.`
     );
@@ -433,6 +438,29 @@ async function delDept() {
   } else {
     main();
   }
+}
+
+async function totalSalary() {
+  const deptList = await db.listDBAllDept();
+  const deptOption = deptList.map(({ ID, NAME }) => ({
+    name: NAME,
+    value: ID,
+  }));
+  const totalDeptBudget = await inquirer.prompt([
+    {
+      type: "list",
+      name: "department_id",
+      message: "Which department do you want to check? ",
+      choices: deptOption,
+    },
+  ]);
+  await db.viewBudget(totalDeptBudget);
+  main();
+}
+
+async function exit() {
+  console.log("Thank you for using Employee Tracker. See you next time.");
+  process.exit(1);
 }
 
 main();
