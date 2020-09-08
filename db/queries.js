@@ -210,7 +210,7 @@ class DB {
   }
 
   //update employee
-  updateEmp(getName, updateEmpID) {
+  updateDBEmp(getName, updateEmpID) {
     console.log("checking " + getName.first_name);
     return this.connection.query(
       `
@@ -224,10 +224,19 @@ class DB {
         `
     );
   }
-  //   //update employee role
-  //   updateRole() {
-  //     return this.connection.query();
-  //   }
+  //update employee role
+  updateDBEmpRole(updatEmpRole) {
+    return this.connection.query(
+      `
+      UPDATE
+        EMPLOYEE
+      SET
+        role_id = ${updatEmpRole.role_id}
+      WHERE
+        ID = ${updatEmpRole.ID}
+        `
+    );
+  }
   //   //update employee manager
   //   updateManager() {
   //     return this.connection.query();

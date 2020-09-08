@@ -34,6 +34,8 @@ async function main() {
       updateEmp();
       break;
     case "upRole":
+      updateEmpRole();
+      break;
     case "upMan":
     case "delRole":
     case "delDept":
@@ -240,7 +242,6 @@ async function addDeptment() {
 }
 
 async function updateEmp() {
-  //viewAllEmp();
   ///get all emp option
   const empList = await db.listDBAllEmp();
   const empOption = empList.map(({ ID, FULL_NAME }) => ({
@@ -263,7 +264,7 @@ async function updateEmp() {
       JSON.stringify(getName) +
       JSON.stringify(updateEmpID)
   );
-  await db.updateEmp(getName, updateEmpID);
+  await db.updateDBEmp(getName, updateEmpID);
   console.log(
     `The employee's name has been updated to: ${getName.first_name}${getName.last_name}.`
   );
@@ -271,6 +272,40 @@ async function updateEmp() {
   main();
 }
 
+async function updateEmpRole() {
+  ///get all emp option
+  const empList = await db.listDBAllEmp();
+  const empOption = empList.map(({ ID, FULL_NAME }) => ({
+    name: FULL_NAME,
+    value: ID,
+  }));
+  // get all role option
+  const roleList = await db.listDBAllRole();
+  const roleOption = roleList.map(({ ID, TITLE }) => ({
+    name: TITLE,
+    value: ID,
+  }));
+  const updatEmpRole = await inquirer.prompt([
+    {
+      name: "ID",
+      type: "list",
+      message: "Which employee do want to update?",
+      choices: empOption,
+    },
+    {
+      name: "role_id",
+      type: "list",
+      message: "Which title should up updated to this employee?",
+      choices: roleOption,
+    },
+  ]);
+
+  console.log("Checking: " + JSON.stringify(updatEmpRole));
+
+  await db.updateDBEmpRole(updatEmpRole);
+  console.log(`The employee's title has been updated.`);
+  main();
+}
 main();
 
 //   ///get all manager option
@@ -279,12 +314,7 @@ main();
 //     name: FULL_NAME,
 //     value: ID,
 //   }));
-//   // get all role option
-//   const roleList = await db.listDBAllRole();
-//   const roleOption = roleList.map(({ ID, TITLE }) => ({
-//     name: TITLE,
-//     value: ID,
-//   }));
+
 // const updatEmpData = await inquirer.prompt([
 //     {
 //       name: "role_id",

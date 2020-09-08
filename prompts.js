@@ -42,7 +42,7 @@ module.exports = {
           value: "upEmp",
         },
         {
-          name: "Update employee role",
+          name: "Update employee title",
           value: "upRole",
         },
         {
