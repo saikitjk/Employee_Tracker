@@ -38,16 +38,16 @@ module.exports = {
           value: "addDept",
         },
         {
+          name: "Update employee name",
+          value: "upEmp",
+        },
+        {
           name: "Update employee role",
           value: "upRole",
         },
         {
           name: "Update employee manager",
           value: "upMan",
-        },
-        {
-          name: "Update employee department",
-          value: "upDept",
         },
         {
           name: "Delete role",
@@ -115,6 +115,19 @@ module.exports = {
       name: "name",
       type: "input",
       message: "What is the name of the new department?",
+    },
+  ],
+
+  upEmpPrompt: [
+    {
+      name: "first_name",
+      type: "input",
+      message: "what is the employee's new first name?",
+    },
+    {
+      name: "last_name",
+      type: "input",
+      message: "what is the employee's new last name?",
     },
   ],
 }; //module.export ends here

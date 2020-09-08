@@ -5,7 +5,7 @@ const db = require("./db/queries");
 require("console.table");
 
 async function main() {
-  console.log("\n Welcome to Employee Tracker \n");
+  console.log("\n Please select an action \n");
   const { action } = await inquirer.prompt(prompts.mainPrompt);
 
   switch (action) {
@@ -30,9 +30,11 @@ async function main() {
     case "addDept":
       addDeptment();
       break;
+    case "upEmp":
+      updateEmp();
+      break;
     case "upRole":
     case "upMan":
-    case "upDept":
     case "delRole":
     case "delDept":
     case "delEmp":
@@ -216,9 +218,12 @@ async function addEmpRole() {
   };
   console.log(typeof newRoleArray + JSON.stringify(newRoleArray));
   await db.addDBNewRole(newRoleArray);
+  const allRole = await db.listDBAllRole();
   console.log(
     `Added new ${title.title} with salart: ${title.salary} into database`
   );
+  console.table(allRole);
+
   main();
 }
 
@@ -227,9 +232,70 @@ async function addDeptment() {
 
   await db.addDBNewDept(deptName);
   //console.log(typeof deptName + JSON.stringify(deptName));
+  const allDept = await db.listDBAllDept();
   console.log(`Added new department: ${deptName.name} into database`);
+  console.table(allDept);
+
+  main();
+}
+
+async function updateEmp() {
+  //viewAllEmp();
+  ///get all emp option
+  const empList = await db.listDBAllEmp();
+  const empOption = empList.map(({ ID, FULL_NAME }) => ({
+    name: FULL_NAME,
+    value: ID,
+  }));
+
+  const updateEmpID = await inquirer.prompt([
+    {
+      name: "ID",
+      type: "list",
+      message: "Which employee do want to update?",
+      choices: empOption,
+    },
+  ]);
+  const getName = await inquirer.prompt(prompts.upEmpPrompt);
+
+  console.log(
+    "checking the array: " +
+      JSON.stringify(getName) +
+      JSON.stringify(updateEmpID)
+  );
+  await db.updateEmp(getName, updateEmpID);
+  console.log(
+    `The employee's name has been updated to: ${getName.first_name}${getName.last_name}.`
+  );
 
   main();
 }
 
 main();
+
+//   ///get all manager option
+//   const manList = await db.listDBAllManager();
+//   const manOption = manList.map(({ ID, FULL_NAME }) => ({
+//     name: FULL_NAME,
+//     value: ID,
+//   }));
+//   // get all role option
+//   const roleList = await db.listDBAllRole();
+//   const roleOption = roleList.map(({ ID, TITLE }) => ({
+//     name: TITLE,
+//     value: ID,
+//   }));
+// const updatEmpData = await inquirer.prompt([
+//     {
+//       name: "role_id",
+//       type: "list",
+//       message: "Which title should up updated to this employee?",
+//       choices: roleOption,
+//     },
+//     {
+//       name: "manager_id",
+//       type: "list",
+//       message: "Who is the new manager of this employee?",
+//       choices: manOption,
+//     },
+//   ]);

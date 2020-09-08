@@ -136,6 +136,20 @@ class DB {
             `
     );
   }
+
+  //*******************************************************//
+  listDBAllEmp() {
+    return this.connection.query(
+      `
+              SELECT 
+                ID,
+                CONCAT(FIRST_NAME, ' ', LAST_NAME) as 'FULL_NAME'
+              FROM 
+                EMPLOYEE
+      
+              `
+    );
+  }
   //view all emplyee by manager
   viewDBAllManager(manID) {
     return this.connection.query(
@@ -195,10 +209,21 @@ class DB {
     );
   }
 
-  //   //update employee
-  //   updateEmp() {
-  //     return this.connection.query();
-  //   }
+  //update employee
+  updateEmp(getName, updateEmpID) {
+    console.log("checking " + getName.first_name);
+    return this.connection.query(
+      `
+      UPDATE
+        EMPLOYEE
+      SET
+        FIRST_NAME = '${getName.first_name}',
+        LAST_NAME = '${getName.last_name}'
+      WHERE
+        ID = ${updateEmpID.ID}
+        `
+    );
+  }
   //   //update employee role
   //   updateRole() {
   //     return this.connection.query();
