@@ -37,6 +37,8 @@ async function main() {
       updateEmpRole();
       break;
     case "upMan":
+      updateEmpManager();
+      break;
     case "delRole":
     case "delDept":
     case "delEmp":
@@ -334,32 +336,10 @@ async function updateEmpManager() {
       choices: managerOption,
     },
   ]);
-  console.log("Checking: " + JSON.stringify(updateEmpManagerInfo));
-  //await db.updateDBEmpManager(updateEmpManagerInfo);
+  //console.log("Checking: " + JSON.stringify(updateEmpManagerInfo));
+  await db.updateDBEmpManager(updateEmpManagerInfo);
   console.log(`The employee has been transferred to a new manager.`);
   main();
 }
 
 main();
-
-//   ///get all manager option
-//   const manList = await db.listDBAllManager();
-//   const manOption = manList.map(({ ID, FULL_NAME }) => ({
-//     name: FULL_NAME,
-//     value: ID,
-//   }));
-
-// const updatEmpData = await inquirer.prompt([
-//     {
-//       name: "role_id",
-//       type: "list",
-//       message: "Which title should up updated to this employee?",
-//       choices: roleOption,
-//     },
-//     {
-//       name: "manager_id",
-//       type: "list",
-//       message: "Who is the new manager of this employee?",
-//       choices: manOption,
-//     },
-//   ]);

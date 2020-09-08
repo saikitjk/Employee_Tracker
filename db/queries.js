@@ -247,6 +247,7 @@ class DB {
         manager_id = ${uupdateEmpManagerInfo.manager_id}
       WHERE
         ID = ${uupdateEmpManagerInfo.ID}
+        `
     );
   }
 
