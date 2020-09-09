@@ -207,9 +207,9 @@ async function addEmp() {
 
   console.log(`Added ${empName.first_name}${empName.last_name} into database`);
   viewAllEmp();
-  main();
 }
 
+//*******************************************************/
 async function addEmpRole() {
   const deptList = await db.listDBAllDept();
   const deptOption = deptList.map(({ ID, NAME }) => ({
@@ -242,6 +242,7 @@ async function addEmpRole() {
   main();
 }
 
+//*******************************************************/
 async function addDeptment() {
   const deptName = await inquirer.prompt(prompts.addNewDept);
 
@@ -254,6 +255,7 @@ async function addDeptment() {
   main();
 }
 
+//*******************************************************/
 async function updateEmp() {
   ///get all emp option
   const empList = await db.listDBAllEmp();
@@ -272,19 +274,19 @@ async function updateEmp() {
   ]);
   const getName = await inquirer.prompt(prompts.upEmpPrompt);
 
-  console.log(
-    "checking the array: " +
-      JSON.stringify(getName) +
-      JSON.stringify(updateEmpID)
-  );
+  //   console.log(
+  //     "checking the array: " +
+  //       JSON.stringify(getName) +
+  //       JSON.stringify(updateEmpID)
+  //   );
   await db.updateDBEmp(getName, updateEmpID);
   console.log(
     `The employee's name has been updated to: ${getName.first_name}${getName.last_name}.`
   );
-
-  main();
+  viewAllEmp();
 }
 
+//*******************************************************/
 async function updateEmpRole() {
   ///get all emp option
   const empList = await db.listDBAllEmp();
@@ -320,6 +322,7 @@ async function updateEmpRole() {
   main();
 }
 
+//*******************************************************/
 async function updateEmpManager() {
   ///get all emp option
   const empList = await db.listDBAllEmp();
@@ -350,9 +353,10 @@ async function updateEmpManager() {
   //console.log("Checking: " + JSON.stringify(updateEmpManagerInfo));
   await db.updateDBEmpManager(updateEmpManagerInfo);
   console.log(`The employee has been transferred to a new manager.`);
-  main();
+  viewAllEmp();
 }
 
+//*******************************************************/
 async function delEmp() {
   const empList = await db.listDBAllEmp();
   const empOption = empList.map(({ ID, FULL_NAME }) => ({
@@ -376,12 +380,13 @@ async function delEmp() {
     console.log(
       `The employee with ID: ${delEmpInfo.ID} has been removed from the database.`
     );
-    main();
+    viewAllEmp();
   } else {
     main();
   }
 }
 
+//*******************************************************/
 async function delRole() {
   const roleList = await db.listDBAllRole();
   const roleOption = roleList.map(({ ID, TITLE }) => ({
@@ -405,12 +410,17 @@ async function delRole() {
     console.log(
       `The title with Role_ID: ${delRoleInfo.role_id} has been removed from the database.`
     );
+
+    console.log("\n");
+    console.table(roleList);
+    console.log("\n");
     main();
   } else {
     main();
   }
 }
 
+//*******************************************************/
 async function delDept() {
   const deptList = await db.listDBAllDept();
   const deptOption = deptList.map(({ ID, NAME }) => ({
@@ -434,12 +444,16 @@ async function delDept() {
     console.log(
       `The department with department_ID: ${delDeptInfo.department_id} has been removed from the database.`
     );
+    console.log("\n");
+    console.table(deptList);
+    console.log("\n");
     main();
   } else {
     main();
   }
 }
 
+//*******************************************************/
 async function totalSalary() {
   const deptList = await db.listDBAllDept();
   const deptOption = deptList.map(({ ID, NAME }) => ({
@@ -458,6 +472,7 @@ async function totalSalary() {
   main();
 }
 
+//*******************************************************/
 async function exit() {
   console.log("Thank you for using Employee Tracker. See you next time.");
   process.exit(1);
