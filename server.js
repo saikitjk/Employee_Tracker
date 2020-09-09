@@ -4,6 +4,23 @@ const prompts = require("./prompts");
 const db = require("./db/queries");
 require("console.table");
 
+//*******************************************************/
+console.log(
+  logo({
+    name: "Employee Tracker",
+    font: "DOS Rebel",
+    lineChars: 10,
+    padding: 2,
+    margin: 3,
+    borderColor: "grey",
+    logoColor: "bold-green",
+    textColor: "green",
+  })
+    .right("by JK")
+    .render()
+);
+//*******************************************************/
+
 console.log("\n Welcome to Employee Tracker \n");
 async function main() {
   console.log("\n Please select an action \n");
