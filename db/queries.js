@@ -81,25 +81,25 @@ class DB {
   //*******************************************************//
   //*******************************************************//
   //view all role
-  listDBRoleMoreThanOne() {
-    return this.connection.query(
-      `
-            SELECT 
-              ro.ID, 
-              ro.TITLE
-            FROM 
-              EMPROLE as ro
-            INNER JOIN 
-              EMPLOYEE as EMP
-            ON RO.ID = EMP.ROLE_ID
-            GROUP BY 
-              RO.ID,RO.TITLE
-            HAVING 
-              COUNT(EMP.ROLE_ID)>1 
-    
-            `
-    );
-  }
+  // listDBRoleMoreThanOne() {
+  //   return this.connection.query(
+  //     `
+  //           SELECT
+  //             ro.ID,
+  //             ro.TITLE
+  //           FROM
+  //             EMPROLE as ro
+  //           INNER JOIN
+  //             EMPLOYEE as EMP
+  //           ON RO.ID = EMP.ROLE_ID
+  //           GROUP BY
+  //             RO.ID,RO.TITLE
+  //           HAVING
+  //             COUNT(EMP.ROLE_ID)>1
+
+  //           `
+  //   );
+  // }
 
   //8888888
   listDBAllRole() {

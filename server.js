@@ -2,26 +2,12 @@ const inquirer = require("inquirer");
 const logo = require("asciiart-logo");
 const prompts = require("./prompts");
 const db = require("./db/queries");
+const banner = require("./logo");
 require("console.table");
 
 //*******************************************************/
-console.log(
-  logo({
-    name: "Employee Tracker",
-    font: "DOS Rebel",
-    lineChars: 10,
-    padding: 2,
-    margin: 3,
-    borderColor: "grey",
-    logoColor: "bold-green",
-    textColor: "green",
-  })
-    .right("by JK")
-    .render()
-);
+console.log("\n" + banner + "\n");
 //*******************************************************/
-
-console.log("\n Welcome to Employee Tracker \n");
 async function main() {
   console.log("\n Please select an action \n");
   const { action } = await inquirer.prompt(prompts.mainPrompt);
@@ -151,26 +137,27 @@ async function viewAllEmpByManager() {
     value: ID,
   }));
 
-  //   console.log(
-  //     "hey " + typeof manOption + " - " + manOption + JSON.stringify(manList)
-  //   );
+  if (manList.length !== 0) {
+    const { manID } = await inquirer.prompt([
+      {
+        type: "list",
+        name: "manID",
+        message: "which manager's team do you want to pull?",
+        choices: manOption,
+      },
+    ]);
 
-  const { manID } = await inquirer.prompt([
-    {
-      type: "list",
-      name: "manID",
-      message: "which manager's team do you want to pull?",
-      choices: manOption,
-    },
-  ]);
+    //console.log("hey " + typeof manID + " - " + JSON.stringify(manID));
 
-  //console.log("hey " + typeof manID + " - " + JSON.stringify(manID));
-
-  const allEmpByMan = await db.viewDBAllManager(manID);
-  console.log("\n");
-  console.table(allEmpByMan);
-  console.log("\n");
-  main();
+    const allEmpByMan = await db.viewDBAllManager(manID);
+    console.log("\n");
+    console.table(allEmpByMan);
+    console.log("\n");
+    main();
+  } else {
+    console.log("There is no manager in this company. Please add one.");
+    main();
+  }
 }
 //*******************************************************/
 async function addEmp() {
@@ -199,7 +186,7 @@ async function addEmp() {
 
   var newEmpManID = null;
 
-  if (newEmpRoleID.role_id !== 1) {
+  if (newEmpRoleID.role_id !== 1 && manList.length !== 0) {
     newEmpManID = await inquirer.prompt([
       {
         name: "manager_id",
@@ -208,22 +195,32 @@ async function addEmp() {
         choices: manOption,
       },
     ]);
+
+    var newEmpArray = {
+      ...empName,
+      ...newEmpRoleID,
+      ...newEmpManID,
+    };
+
+    await db.addDBEmp(newEmpArray);
+
+    console.log(
+      `Added ${empName.first_name}${empName.last_name} into database`
+    );
+    main();
+  } else {
+    var newEmpArray = {
+      ...empName,
+      ...newEmpRoleID,
+    };
+
+    await db.addDBEmp(newEmpArray);
+
+    console.log(
+      `Added ${empName.first_name}${empName.last_name} as a manager into database`
+    );
+    main();
   }
-
-  console.log(
-    "checking action2: " + typeof newEmpManID + JSON.stringify(newEmpManID)
-  );
-
-  var newEmpArray = {
-    ...empName,
-    ...newEmpRoleID,
-    ...newEmpManID,
-  };
-
-  await db.addDBEmp(newEmpArray);
-
-  console.log(`Added ${empName.first_name}${empName.last_name} into database`);
-  main();
 }
 
 //*******************************************************/
@@ -248,7 +245,7 @@ async function addEmpRole() {
     ...title,
     ...newDeptID,
   };
-  console.log(typeof newRoleArray + JSON.stringify(newRoleArray));
+  //console.log(typeof newRoleArray + JSON.stringify(newRoleArray));
   await db.addDBNewRole(newRoleArray);
   const allRole = await db.listDBAllRole();
   console.log(
@@ -264,7 +261,7 @@ async function addDeptment() {
   const deptName = await inquirer.prompt(prompts.addNewDept);
 
   await db.addDBNewDept(deptName);
-  console.log(typeof deptName + JSON.stringify(deptName));
+  // console.log(typeof deptName + JSON.stringify(deptName));
   const allDept = await db.listDBAllDept();
   console.log(`Added new department: ${deptName.name} into database`);
   console.table(allDept);
@@ -312,7 +309,7 @@ async function updateEmpRole() {
     value: ID,
   }));
   // get all role option
-  const roleList = await db.listDBRoleMoreThanOne();
+  const roleList = await db.listDBAllRole();
   const roleOption = roleList.map(({ ID, TITLE }) => ({
     name: TITLE,
     value: ID,
@@ -354,24 +351,31 @@ async function updateEmpManager() {
     name: FULL_NAME,
     value: ID,
   }));
+  //   console.log(
+  //     "Checking: " + typeof managerList + JSON.stringify(managerList.length)
+  //   );
 
-  const updateEmpManagerInfo = await inquirer.prompt([
-    {
-      name: "ID",
-      type: "list",
-      message: "Which employee do want to update?",
-      choices: empOption,
-    },
-    {
-      name: "manager_id",
-      type: "list",
-      message: "Which manager should this employee goes under?",
-      choices: managerOption,
-    },
-  ]);
-  //console.log("Checking: " + JSON.stringify(updateEmpManagerInfo));
-  await db.updateDBEmpManager(updateEmpManagerInfo);
-  console.log(`The employee has been transferred to a new manager.`);
+  if (managerList.length !== 0) {
+    const updateEmpManagerInfo = await inquirer.prompt([
+      {
+        name: "ID",
+        type: "list",
+        message: "Which employee do want to update?",
+        choices: empOption,
+      },
+      {
+        name: "manager_id",
+        type: "list",
+        message: "Which manager should this employee goes under?",
+        choices: managerOption,
+      },
+    ]);
+
+    await db.updateDBEmpManager(updateEmpManagerInfo);
+    console.log(`The employee has been transferred to a new manager.`);
+    main();
+  }
+  console.log("There is no manager in the company. Please add a new manager.");
   main();
 }
 
@@ -407,7 +411,7 @@ async function delEmp() {
 
 //*******************************************************/
 async function delRole() {
-  const roleList = await db.listDBRoleMoreThanOne();
+  const roleList = await db.listDBAllRole();
   const roleOption = roleList.map(({ ID, TITLE }) => ({
     name: TITLE,
     value: ID,
