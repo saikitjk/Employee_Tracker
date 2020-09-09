@@ -81,6 +81,27 @@ class DB {
   //*******************************************************//
   //*******************************************************//
   //view all role
+  listDBRoleMoreThanOne() {
+    return this.connection.query(
+      `
+            SELECT 
+              ro.ID, 
+              ro.TITLE
+            FROM 
+              EMPROLE as ro
+            INNER JOIN 
+              EMPLOYEE as EMP
+            ON RO.ID = EMP.ROLE_ID
+            GROUP BY 
+              RO.ID,RO.TITLE
+            HAVING 
+              COUNT(EMP.ROLE_ID)>1 
+    
+            `
+    );
+  }
+
+  //8888888
   listDBAllRole() {
     return this.connection.query(
       `
@@ -89,6 +110,7 @@ class DB {
               TITLE
             FROM 
               EMPROLE
+            
     
             `
     );
@@ -132,7 +154,7 @@ class DB {
             FROM 
               EMPLOYEE
             WHERE
-              MANAGER_ID IS NULL
+              ROLE_ID = 1
     
             `
     );
@@ -314,6 +336,31 @@ class DB {
           DEP.ID = ${totalDeptBudget.department_id}
         GROUP BY DEP.ID
    `
+    );
+  }
+
+  countManger() {
+    return this.connection.query(
+      `
+    SELECT
+	    COUNT(ROLE_ID)
+    FROM
+	    EMPLOYEE
+    WHERE
+	    ROLE_ID = 1
+    `
+    );
+  }
+  countMangerRole() {
+    return this.connection.query(
+      `
+      SELECT
+        COUNT(TITLE)
+      FROM
+        EMPROLE
+      WHERE
+        TITLE = 'MANAGER'
+      `
     );
   }
 } //Class DB end here
