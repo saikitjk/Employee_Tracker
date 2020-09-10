@@ -20,11 +20,17 @@ This Employee Tracker allows users to perform the following:
 
 - View the total salaries of all employees in a department
 
-## Deployed application
-
 ## Demo
 
+https://drive.google.com/file/d/1Y4rvHJFNd9zKx8uDWNMWYE6yTSP1y5Ga/preview"
+
 ![Screen Shot 2020-09-08 at 6 03 36 PM](https://user-images.githubusercontent.com/34286313/92543060-4c765780-f1ff-11ea-9356-1820e4d4d074.png)
+
+![Screen Shot 2020-09-10 at 1 51 03 PM](https://user-images.githubusercontent.com/34286313/92812088-e3fcb700-f373-11ea-97f5-333c7e7456dc.png)
+
+![Screen Shot 2020-09-10 at 1 51 18 PM](https://user-images.githubusercontent.com/34286313/92812098-e65f1100-f373-11ea-893f-aa805654ed7a.png)
+
+![Screen Shot 2020-09-10 at 1 51 58 PM](https://user-images.githubusercontent.com/34286313/92812106-e8c16b00-f373-11ea-9d94-ef71cb7880b2.png)
 
 ## Table of contents
 
