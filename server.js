@@ -220,6 +220,17 @@ async function addEmp() {
       `Added ${empName.first_name}${empName.last_name} as a manager into database`
     );
     main();
+  } else {
+    var newEmpArray = {
+      ...empName,
+      ...newEmpRoleID,
+    };
+    await db.addDBEmp(newEmpArray);
+
+    console.log(
+      `Added ${empName.first_name}${empName.last_name} into database`
+    );
+    main();
   }
 }
 
