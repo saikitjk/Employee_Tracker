@@ -24,8 +24,6 @@ This Employee Tracker allows users to perform the following:
 
 https://drive.google.com/file/d/1Y4rvHJFNd9zKx8uDWNMWYE6yTSP1y5Ga/preview"
 
-![Screen Shot 2020-09-10 at 3 01 37 PM] (https://user-images.githubusercontent.com/34286313/92813702-93d32400-f376-11ea-87ea-5205bcd503d8.png)
-
 ![Screen Shot 2020-09-10 at 1 51 03 PM](https://user-images.githubusercontent.com/34286313/92812088-e3fcb700-f373-11ea-97f5-333c7e7456dc.png)
 
 ![Screen Shot 2020-09-10 at 1 51 18 PM](https://user-images.githubusercontent.com/34286313/92812098-e65f1100-f373-11ea-893f-aa805654ed7a.png)
