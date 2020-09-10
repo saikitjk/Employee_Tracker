@@ -208,7 +208,7 @@ async function addEmp() {
       `Added ${empName.first_name}${empName.last_name} into database`
     );
     main();
-  } else {
+  } else if (newEmpRoleID.role_id === 1) {
     var newEmpArray = {
       ...empName,
       ...newEmpRoleID,
@@ -314,7 +314,8 @@ async function updateEmpRole() {
     name: TITLE,
     value: ID,
   }));
-  //check if there is manager left
+
+  const managerSchemaName = await db.getManagerSchema();
 
   const updatEmpRole = await inquirer.prompt([
     {
@@ -326,16 +327,29 @@ async function updateEmpRole() {
     {
       name: "role_id",
       type: "list",
-      message: "Which title should up updated to this employee?",
+      message: "Which title should be updated to this employee?",
       choices: roleOption,
     },
   ]);
 
-  //console.log("Checking: " + JSON.stringify(updatEmpRole));
+  //   console.log(
+  //     "Checking BYE: " +
+  //       typeof managerSchemaName +
+  //       JSON.stringify(managerSchemaName[0])
+  //   );
 
+  //   if (updatEmpRole.role_id === value) {
+  //     console.log("works");
+  //await db.removeManagerID(updatEmpRole);
   await db.updateDBEmpRole(updatEmpRole);
   console.log(`The employee's title has been updated.`);
   main();
+  //   } else {
+  //     console.log("not work");
+  //     await db.updateDBEmpRole(updatEmpRole);
+  //     console.log(`The employee's title has been updated.`);
+  //     main();
+  //}
 }
 
 //*******************************************************/
@@ -433,9 +447,9 @@ async function delRole() {
     console.log(
       `The title with Role_ID: ${delRoleInfo.role_id} has been removed from the database.`
     );
-
+    const newRoleList = await db.listDBAllRole();
     console.log("\n");
-    console.table(roleList);
+    console.table(newRoleList);
     console.log("\n");
     main();
   } else {
@@ -467,8 +481,9 @@ async function delDept() {
     console.log(
       `The department with department_ID: ${delDeptInfo.department_id} has been removed from the database.`
     );
+    const newDeptList = await db.listDBAllDept();
     console.log("\n");
-    console.table(deptList);
+    console.table(newDeptList);
     console.log("\n");
     main();
   } else {

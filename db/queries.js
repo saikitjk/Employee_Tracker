@@ -339,27 +339,28 @@ class DB {
     );
   }
 
-  countManger() {
-    return this.connection.query(
-      `
-    SELECT
-	    COUNT(ROLE_ID)
-    FROM
-	    EMPLOYEE
-    WHERE
-	    ROLE_ID = 1
-    `
-    );
-  }
-  countMangerRole() {
+  getManagerSchema() {
     return this.connection.query(
       `
       SELECT
-        COUNT(TITLE)
-      FROM
+        ID
+      FROM 
         EMPROLE
       WHERE
-        TITLE = 'MANAGER'
+        TITLE = 'Manager'
+
+    `
+    );
+  }
+  removeManagerID(updateDBEmpRole) {
+    return this.connection.query(
+      `
+      UPDATE
+        EMPLOYEE
+      SET
+        MANAGER_ID = NULL
+      WHERE
+        ID = ${updateDBEmpRole.ID}
       `
     );
   }
