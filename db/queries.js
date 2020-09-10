@@ -248,15 +248,15 @@ class DB {
     );
   }
   //update employee role
-  updateDBEmpRole(updatEmpRole) {
+  updateDBEmpRole(roleInfoArray) {
     return this.connection.query(
       `
       UPDATE
         EMPLOYEE
       SET
-        role_id = ${updatEmpRole.role_id}
+        role_id = ${roleInfoArray.role_id}
       WHERE
-        ID = ${updatEmpRole.ID}
+        ID = ${roleInfoArray.ID}
         `
     );
   }
@@ -343,7 +343,8 @@ class DB {
     return this.connection.query(
       `
       SELECT
-        ID
+        ID,
+        TITLE
       FROM 
         EMPROLE
       WHERE

@@ -316,6 +316,9 @@ async function updateEmpRole() {
   }));
 
   const managerSchemaName = await db.getManagerSchema();
+  const schemaID = managerSchemaName.map(({ ID }) => ({
+    role_id: ID,
+  }));
 
   const updatEmpRole = await inquirer.prompt([
     {
@@ -324,6 +327,8 @@ async function updateEmpRole() {
       message: "Which employee do you want to update?",
       choices: empOption,
     },
+  ]);
+  const updatRoleID = await inquirer.prompt([
     {
       name: "role_id",
       type: "list",
@@ -332,24 +337,21 @@ async function updateEmpRole() {
     },
   ]);
 
-  //   console.log(
-  //     "Checking BYE: " +
-  //       typeof managerSchemaName +
-  //       JSON.stringify(managerSchemaName[0])
-  //   );
+  const roleInfoArray = {
+    ...updatEmpRole,
+    ...updatRoleID,
+  };
 
-  //   if (updatEmpRole.role_id === value) {
-  //     console.log("works");
-  //await db.removeManagerID(updatEmpRole);
-  await db.updateDBEmpRole(updatEmpRole);
-  console.log(`The employee's title has been updated.`);
-  main();
-  //   } else {
-  //     console.log("not work");
-  //     await db.updateDBEmpRole(updatEmpRole);
-  //     console.log(`The employee's title has been updated.`);
-  //     main();
-  //}
+  if (JSON.stringify(updatRoleID) === JSON.stringify(schemaID[0])) {
+    await db.removeManagerID(updatEmpRole);
+    await db.updateDBEmpRole(roleInfoArray);
+    console.log(`The employee's title has been updated.`);
+    main();
+  } else {
+    await db.updateDBEmpRole(roleInfoArray);
+    console.log(`The employee's title has been updated.`);
+    main();
+  }
 }
 
 //*******************************************************/
