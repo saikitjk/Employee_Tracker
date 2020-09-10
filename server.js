@@ -150,10 +150,16 @@ async function viewAllEmpByManager() {
     //console.log("hey " + typeof manID + " - " + JSON.stringify(manID));
 
     const allEmpByMan = await db.viewDBAllManager(manID);
-    console.log("\n");
-    console.table(allEmpByMan);
-    console.log("\n");
-    main();
+
+    if (allEmpByMan.length !== 0) {
+      console.log("\n");
+      console.table(allEmpByMan);
+      console.log("\n");
+      main();
+    } else {
+      console.log("\n This manager has no team yet.");
+      main();
+    }
   } else {
     console.log("There is no manager in this company. Please add one.");
     main();
@@ -512,10 +518,15 @@ async function totalSalary() {
     },
   ]);
   const leadbudget = await db.viewBudget(totalDeptBudget);
-  console.log("\nThe total salary of this department is: \n");
-  console.table(leadbudget);
-  console.log("\n");
-  main();
+  if (leadbudget.length !== 0) {
+    console.log("\nThe total salary of this department is: \n");
+    console.table(leadbudget);
+    console.log("\n");
+    main();
+  } else {
+    console.log("There is no employee in this department. Total salary is 0");
+    main();
+  }
 }
 
 //*******************************************************/

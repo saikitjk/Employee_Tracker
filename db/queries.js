@@ -148,13 +148,16 @@ class DB {
   listDBAllManager() {
     return this.connection.query(
       `
-            SELECT 
-              ID,
-              CONCAT(FIRST_NAME, ' ', LAST_NAME) as 'FULL_NAME'
-            FROM 
-              EMPLOYEE
-            WHERE
-              ROLE_ID = 1
+      SELECT 
+      EMP.ID AS 'ID',
+      CONCAT(EMP.FIRST_NAME, ' ', EMP.LAST_NAME) as 'FULL_NAME'
+    FROM 
+      EMPLOYEE AS EMP
+    INNER JOIN
+      EMPROLE AS RO
+    ON EMP.ROLE_ID = RO.ID
+    WHERE
+      RO.TITLE = 'Manager'
     
             `
     );
@@ -175,6 +178,7 @@ class DB {
   }
   //view all emplyee by manager
   viewDBAllManager(manID) {
+    //console.log(manID);
     return this.connection.query(
       `
       SELECT
@@ -187,8 +191,13 @@ class DB {
       RIGHT JOIN
         EMPLOYEE as M
       ON E.ID = M.MANAGER_ID
+      INNER JOIN 
+        EMPROLE AS RO
+      ON E.ROLE_ID = RO.ID
       WHERE 
-        M.MANAGER_ID = ?
+        RO.TITLE = "Manager"
+        AND 
+        E.ID = ?
       `,
       manID
     );
