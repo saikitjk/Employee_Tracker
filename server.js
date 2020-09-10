@@ -288,11 +288,6 @@ async function updateEmp() {
   ]);
   const getName = await inquirer.prompt(prompts.upEmpPrompt);
 
-  //   console.log(
-  //     "checking the array: " +
-  //       JSON.stringify(getName) +
-  //       JSON.stringify(updateEmpID)
-  //   );
   await db.updateDBEmp(getName, updateEmpID);
   console.log(
     `The employee's name has been updated to: ${getName.first_name}${getName.last_name}.`
@@ -367,9 +362,6 @@ async function updateEmpManager() {
     name: FULL_NAME,
     value: ID,
   }));
-  //   console.log(
-  //     "Checking: " + typeof managerList + JSON.stringify(managerList.length)
-  //   );
 
   if (managerList.length !== 0) {
     const updateEmpManagerInfo = await inquirer.prompt([

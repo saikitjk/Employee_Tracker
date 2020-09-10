@@ -7,7 +7,7 @@ module.exports = logo({
   padding: 2,
   margin: 1,
   borderColor: "white",
-  logoColor: "green",
+  logoColor: "white",
   textColor: "white",
 })
   .right("by JK")
